@@ -57,7 +57,7 @@ class PostController extends Controller
 		$image->storeAs('public/posts', $image->hashName());
 		//create post
 		Post::create([
-			'image'		=> $image->hashName(),
+			'image'		=> '/public/posts/'.$image->hashName(),
 			'title'		=> $request->title,
 			'content'	=> $request->content
 		]);
@@ -116,7 +116,7 @@ class PostController extends Controller
 			Storage::delete('public/posts/'.$post->image);
 			//update post with new image
 			$post->update([
-				'image'		=> $image->hashName(),
+				'image'		=> '/public/posts/'.$image->hashName(),
 				'title'		=> $request->title,
 				'content'	=> $request->content
 			]);

@@ -13,7 +13,7 @@
             <div class="col-md-8">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <img src="{{ asset('storage/posts/'.$post->image) }}" class="w-100 rounded">
+                        <img src="{{ Storage::temporaryUrl($post->image, now()->addMinutes(5)) }}" class="w-100 rounded">
                         <hr>
                         <h4>{{ $post->title }}</h4>
                         <p class="mt-3">
