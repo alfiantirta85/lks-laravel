@@ -54,10 +54,10 @@ class PostController extends Controller
 		]);
 		//upload image
 		$image = $request->file('image');
-		$image->storeAs('public/posts', $image->hashName());
+		$image->storeAs($image->hashName());
 		//create post
 		Post::create([
-			'image'		=> '/public/posts/'.$image->hashName(),
+			'image'		=> $image->hashName(),
 			'title'		=> $request->title,
 			'content'	=> $request->content
 		]);
@@ -111,12 +111,12 @@ class PostController extends Controller
 		if ($request->hasFile('image')) {
 			//upload new image
 			$image = $request->file('image');
-			$image->storeAs('public/posts', $image->hashName());
+			$image->storeAs($image->hashName());
 			//delete old image
 			Storage::delete($post->image);
 			//update post with new image
 			$post->update([
-				'image'		=> '/public/posts/'.$image->hashName(),
+				'image'		=> $image->hashName(),
 				'title'		=> $request->title,
 				'content'	=> $request->content
 			]);
