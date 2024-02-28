@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Detail Data Post</title>
+    <title>Detail Data Murid</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body style="background: lightgray">
@@ -13,12 +13,21 @@
             <div class="col-md-8">
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <img src="{{ Storage::temporaryUrl($post->image, now()->addMinutes(5)) }}" class="w-100 rounded">
+                        <img src="{{ Storage::temporaryUrl($post->foto, now()->addMinutes(5)) }}" class="w-100 rounded">
                         <hr>
-                        <h4>{{ $post->title }}</h4>
-                        <p class="mt-3">
-                            {!! $post->content !!}
+                        <h4>{{ $post->nama }}</h4>
+                        <p class="mt-2 mb-0">
+                            NIK : {{ $post->nik }}
                         </p>
+                        <p class="mb-0">
+                            NISN : {{ $post->nisn }}
+                        </p>
+                        <p>
+                            Alamat : {{ $post->alamat }}
+                        </p>
+                        <button type="button" class="btn btn-md btn-dark float-right">
+                            <a href="{{ route('posts.index') }}" class="btn-dark text-decoration-none">KEMBALI</a>
+                        </button>
                     </div>
                 </div>
             </div>

@@ -48,18 +48,22 @@ class PostController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'image'		=> 'required|image|mimes:jpeg,jpg,png|max:2048',
-			'title' 	=> 'required|min:5',
-			'content'	=> 'required|min:10'
+			'foto'		=> 'required|image|mimes:jpeg,jpg,png|max:5120',
+			'nama' 		=> 'required|min:5',
+			'nik'		=> 'required|min:16',
+			'nisn'		=> 'required|min:5',
+			'alamat'	=> 'required|min:5'
 		]);
 		//upload image
-		$image = $request->file('image');
-		$image->storeAs($image->getClientOriginalName());
+		$foto = $request->file('foto');
+		$foto->storeAs($foto->getClientOriginalName());
 		//create post
 		Post::create([
-			'image'		=> $image->getClientOriginalName(),
-			'title'		=> $request->title,
-			'content'	=> $request->content
+			'foto'		=> $foto->getClientOriginalName(),
+			'nama'		=> $request->nama,
+			'nik'		=> $request->nik,
+			'nisn'		=> $request->nisn,
+			'alamat'	=> $request->alamat
 		]);
 		//redirect to index
 		return redirect()->route('posts.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -101,30 +105,36 @@ class PostController extends Controller
 	{
 		//validate form
 		$this->validate($request, [
-			'image'		=> 'image|mimes:jpeg,jpg,png|max:2048',
-			'title'		=> 'required|min:5',
-			'content'	=> 'required|min:10'
+			'foto'		=> 'required|image|mimes:jpeg,jpg,png|max:5120',
+			'nama' 		=> 'required|min:5',
+			'nik'		=> 'required|min:16',
+			'nisn'		=> 'required|min:5',
+			'alamat'	=> 'required|min:5'
 		]);
 		//get post by ID
 		$post = Post::findOrFail($id);
 		//check if image is uploaded
-		if ($request->hasFile('image')) {
+		if ($request->hasFile('foto')) {
 			//upload new image
-			$image = $request->file('image');
-			$image->storeAs($image->getClientOriginalName());
+			$foto = $request->file('foto');
+			$foto->storeAs($foto->getClientOriginalName());
 			//delete old image
-			Storage::delete($post->image);
+			Storage::delete($post->foto);
 			//update post with new image
 			$post->update([
-				'image'		=> $image->getClientOriginalName(),
-				'title'		=> $request->title,
-				'content'	=> $request->content
+				'foto'		=> $foto->getClientOriginalName(),
+				'nama'		=> $request->nama,
+				'nik'		=> $request->nik,
+				'nisn'		=> $request->nisn,
+				'alamat'	=> $request->alamat
 			]);
 		} else {
 			//update post without image
 			$post->update([
-				'title'		=> $request->title,
-				'content'	=> $request->content
+				'nama'		=> $request->nama,
+				'nik'		=> $request->nik,
+				'nisn'		=> $request->nisn,
+				'alamat'	=> $request->alamat
 			]);
 		}
 		//redirect to index
@@ -141,7 +151,7 @@ class PostController extends Controller
 		//get post by ID
 		$post = Post::findOrFail($id);
 		//delete image
-		Storage::delete($post->image);
+		Storage::delete($post->foto);
 		//delete post
 		$post->delete();
 		//redirect to index

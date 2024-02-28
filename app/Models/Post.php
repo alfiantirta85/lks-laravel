@@ -11,8 +11,10 @@ class Post extends Model
 
 
 	protected $fillable = [
-		'image',
-		'title',
-		'content',
+		'foto',
+		'nama',
+		'nik',
+		'nisn',
+		'alamat',
 	];
 }
